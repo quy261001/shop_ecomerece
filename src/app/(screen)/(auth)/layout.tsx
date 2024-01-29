@@ -1,0 +1,34 @@
+'use client'
+import { Col, Layout, Row } from "antd";
+import { Content } from "antd/es/layout/layout";
+import { Suspense } from "react";
+import { Loading } from "@/components";
+
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Layout className="bg-[#f8f8f8]">
+        <Content className="lg:h-screen">
+          <Row className="items-center flex-col lg:flex-row">
+          <Col lg={10} className="">
+              <picture>
+                <img
+                  src="/images/loginImage.png"
+                  alt="loginImage"
+                  className="w-full lg:h-screen h-[400px] mx-auto"
+                />
+              </picture>
+            </Col>
+            <Col lg={14} className="h-full w-full my-10 lg:my-0">
+              {children}
+            </Col>
+          </Row>
+        </Content>
+      </Layout>
+    </Suspense>
+  );
+}

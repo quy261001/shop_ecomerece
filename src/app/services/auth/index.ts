@@ -1,0 +1,16 @@
+import { LoginUserRequestDTO } from '@/app/types/user'
+import { AUTH_API_URL } from '@/common/config'
+import { axiosInstance } from '@/libs/axios'
+
+export const authService = {
+  loginWithUser: async(input: LoginUserRequestDTO) => {
+    const response = await axiosInstance.post<ApiResponseBase, LoginUserRequestDTO>(
+      AUTH_API_URL.LOGIN_USER,
+      input,
+      {
+        needsToken: false
+      }
+    );
+    return response.data
+  }
+}
