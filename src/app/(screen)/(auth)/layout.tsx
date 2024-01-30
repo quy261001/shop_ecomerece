@@ -11,10 +11,10 @@ export default function AuthLayout({
 }) {
   return (
     <Suspense fallback={<Loading />}>
-      <Layout className="bg-[#f8f8f8]">
+      <Layout className="bg-[#fff]">
         <Content className="lg:h-screen">
           <Row className="items-center flex-col lg:flex-row">
-          <Col lg={10} className="">
+          <Col lg={11} className="">
               <picture>
                 <img
                   src="/images/loginImage.png"
@@ -23,7 +23,7 @@ export default function AuthLayout({
                 />
               </picture>
             </Col>
-            <Col lg={14} className="h-full w-full my-10 lg:my-0">
+            <Col lg={13} className="h-full w-full my-10 lg:my-0">
               {children}
             </Col>
           </Row>

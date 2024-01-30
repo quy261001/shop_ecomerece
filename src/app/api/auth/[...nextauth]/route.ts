@@ -1,9 +1,18 @@
 import { authService } from "@/app/services";
 import nextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from 'next-auth/providers/google';
 
 const authOptions: AuthOptions = {
   providers: [
+    GoogleProvider({
+      name: 'google',
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '',
+      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET || '',
+      httpOptions: {
+        timeout: 10000,
+      },
+    }),
     CredentialsProvider({
       name: 'credentials',
       credentials: {
@@ -38,6 +47,15 @@ const authOptions: AuthOptions = {
   ],
   callbacks: {
     async jwt({token, user, account}) {
+      //handle Login with social
+      if(user && (account?.provider === 'google')) {
+        try {
+          const {name, email} = user;
+          // console.log(name, email)
+        } catch(err) {
+          // console.log(err);
+        }
+      }
       // console.log('token', token)
       // console.log('user', user)
       return {...token, ...user};
