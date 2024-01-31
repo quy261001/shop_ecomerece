@@ -2,7 +2,7 @@
 import { Col, Layout, Row } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { Suspense } from "react";
-import { Loading } from "@/components";
+import { Loading, HeaderTop } from "@/components";
 
 export default function AuthLayout({
   children,
@@ -12,7 +12,8 @@ export default function AuthLayout({
   return (
     <Suspense fallback={<Loading />}>
       <Layout className="bg-[#fff]">
-        <Content className="lg:h-screen">
+        <HeaderTop />
+        <Content className="lg:h-screen mt-[60px]">
           <Row className="items-center flex-col lg:flex-row">
           <Col lg={11} className="">
               <picture>

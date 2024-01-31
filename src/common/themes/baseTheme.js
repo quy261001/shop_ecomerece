@@ -6,6 +6,7 @@ module.exports = {
   success: '#45B26B',
   warning: '#c79920',
   error: '#EF466F',
+  custom: '#DB4444',
   info: '#3772FF',
   black: '#000000',
   white: '#ffffff',

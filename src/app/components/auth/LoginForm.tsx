@@ -13,7 +13,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next13-progressbar";
 import { FormItem } from "react-hook-form-antd";
-import { Label, Input, Icon } from "@/components";
+import { Input, Icon } from "@/components";
 import { MESSAGE, useApp } from "@/common";
 
 const { Text, Title } = Typography;

@@ -148,3 +148,6 @@ table {
 img {
   max-width: 100%;
 }
+.ant-image-mask{
+  opacity: 0 !important;
+}

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React from 'react';
 import clsx from 'clsx';
 
-export type IconName = 'google' | 'facebook'
+export type IconName = 'google' | 'cart' | 'wishlist' | 'arrowleft' | 'arrowright' | 'phone'
 
 export interface IconProps {
   name?: IconName | string;
@@ -38,9 +38,7 @@ export const Icon: React.FC<IconProps> = ({
       height = dimensions.height;
     }
   }
-
   if (!name) return null;
-
   return type === 'svg' ? (
     <Image
       src={`/icons/${name}.svg`}

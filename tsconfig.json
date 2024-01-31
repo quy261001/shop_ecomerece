@@ -32,6 +32,6 @@
     "src/common/themes/baseTheme.js",
     "src/common/themes/defaultColors.js",
     "global.d.ts"
-  ],
+, "src/app/utils/CountdownTimerUtils.js"  ],
   "exclude": ["node_modules"]
 }

@@ -21,6 +21,9 @@ const config: Config = {
         sans: ['Be Vietnam Pro', 'sans-serif'],
         serif: ['Be Vietnam Pro', 'sans-serif'],
       },
+      boxShadow: {
+        'gray': '0 0 10px rgba(0,0,0,0.15)',
+      },
       colors,
       borderColor: {
         DEFAULT: '#E6E8EC',
