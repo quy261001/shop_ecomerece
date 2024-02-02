@@ -95,7 +95,7 @@ export function ProductMonth() {
     slidesToScroll: 1,
   };
   return (
-    <div className="mb-[60px]">
+    <div>
       <Flex className="mb-10" justify="space-between" align="flex-end">
         <Flex gap={20} vertical>
           <TagLeft>This Month</TagLeft>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React from 'react';
 import clsx from 'clsx';
 
-export type IconName = 'google' | 'cart' | 'wishlist' | 'arrowleft' | 'arrowright' | 'phone'
+export type IconName = 'google' | 'cart' | 'wishlist' | 'arrowleft' | 'arrowright' | 'phone' | 'twitter'
 
 export interface IconProps {
   name?: IconName | string;

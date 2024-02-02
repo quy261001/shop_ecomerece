@@ -25,8 +25,7 @@ export const Input = React.forwardRef(
     ref: React.ForwardedRef<InputRef>,
   ) => {
     const suffix = isEnableSuffix ? (
-      // <Icon name='check' className='Text-success' />
-      <h1>okkkk</h1>
+      <Icon name='check' className='Text-success' />
     ) : (<span />)
     return (
       <AntInput 

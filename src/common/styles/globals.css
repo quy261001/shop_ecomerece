@@ -148,6 +148,12 @@ table {
 img {
   max-width: 100%;
 }
+
 .ant-image-mask{
   opacity: 0 !important;
+}
+
+.footer-custom .ant-input::placeholder {
+  color: #FAFAFA;
+  opacity: 0.4;
 }
