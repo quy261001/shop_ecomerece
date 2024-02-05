@@ -1,14 +1,17 @@
 "use client";
 
-import { Flex, Typography, Input, Popover } from "antd";
+import { Flex, Typography, Input, Divider } from "antd";
 import { useSession } from "next-auth/react";
+import { MenuHead, Popover } from "@/components";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import clsx from "clsx";
 import { Icon } from "../Icon";
+import { jwtDecode } from "jwt-decode";
+import { useGetDetailUserQuery } from "@/app/services";
 
-const { Text } = Typography;
+const { Text, Title } = Typography;
 const { Search } = Input;
 
 type NavItem = {
@@ -26,9 +29,15 @@ export function HeaderTop() {
 
   const [isSignUp, setIsSignUp] = useState(true);
   const pathname = usePathname();
-  const { status, data } = useSession();
+  const { status } = useSession();
+  const dataPa = useGetDetailUserQuery('65c0877e02993024febcc64d')
   useEffect(() => {
     if (status === "authenticated") {
+      const storedData = localStorage.getItem('access_token');
+      if(storedData !== null) {
+        const data = localStorage.getItem('access_token');
+        const decoded = jwtDecode(data!);
+      }
       setIsSignUp(false);
     }
   }, [status, isSignUp]);
@@ -69,7 +78,7 @@ export function HeaderTop() {
         justify="space-between"
       >
         <div className="font-bold  text-2xl">Exclusive</div>
-        <ul className="flex gap-12 text-base pl-[190px] pr-[148px]">
+        <ul className="flex gap-12 text-base">
           {NavItems &&
             NavItems.map((item) => {
               const isActive = item.link === pathname;
@@ -108,21 +117,23 @@ export function HeaderTop() {
               className="cursor-pointer"
             />
             <Popover
-              placement="bottom"
-              title={'123'}
               content={
-                <div>
-                  <h1>Test</h1>
-                </div>
-              } 
+                <Fragment>
+                  <Title level={4} className="text-white text-center">quytran</Title>
+                  <Divider className="my-2 bg-white"></Divider>
+                  <MenuHead />
+                </Fragment>
+              }
             >
-              <Icon
-                type="svg"
-                name="user"
-                width={28}
-                height={28}
-                className="cursor-pointer"
-              />
+              <div>
+                <Icon
+                  type="svg"
+                  name="user"
+                  width={28}
+                  height={28}
+                  className="cursor-pointer"
+                />
+              </div>
             </Popover>
           </Flex>
         )}

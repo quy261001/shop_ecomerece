@@ -14,7 +14,7 @@ const deviceId = uuidv4();
 
 interface AdaptAxiosRequestConfig extends AxiosRequestConfig {
   headers: AxiosRequestHeaders;
-  needsToken?: boolean;
+  needToken?: boolean;
   _retry?: boolean;
 }
 
@@ -34,8 +34,8 @@ class AxiosInstanceClass {
     this.axiosInstance.interceptors.request.use(
       async (config: AdaptAxiosRequestConfig) => {
         config.headers = config.headers ?? {};
-
-        if (config.needsToken) {
+        if (config.needToken) {
+          console.log('123')
           const accessToken = await this.getAccessToken();
           if (accessToken) config.headers.Token = `Bearer ${accessToken}`
         }
@@ -59,7 +59,7 @@ class AxiosInstanceClass {
 
   private async getAccessToken(): Promise<string | null> {
     const session = await getSession();
-
+    console.log('asda', session)
     if(session) return session.user.accessToken;
 
     return null
@@ -67,7 +67,7 @@ class AxiosInstanceClass {
 
   public async get<T>(
     url: string,
-    config?: { needsToken?: boolean } & AxiosRequestConfig,
+    config?: { needToken?: boolean } & AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> {
     return this.axiosInstance.get<T>(url, config);
   }
@@ -75,9 +75,9 @@ class AxiosInstanceClass {
   public async post<T, U>(
     url: string,
     data?: U,
-    config?: { needsToken?: boolean } & AxiosRequestConfig,
+    config?: { needToken?: boolean } & AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> {
-    return this.axiosInstance.post<T>(url, data, config?.needsToken ? config : undefined);
+    return this.axiosInstance.post<T>(url, data, config?.needToken ? config : undefined);
   }
 
   // add more HTTP methods as need

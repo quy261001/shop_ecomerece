@@ -23,7 +23,6 @@ export const axiosBaseQuery = (): BaseQueryFn<
         ...config,
         needToken: true
       })
-
       return { data: response.data };
     } catch(AxiosError) {
       const err = AxiosError as AxiosError;

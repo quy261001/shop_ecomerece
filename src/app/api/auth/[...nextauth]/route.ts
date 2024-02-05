@@ -62,9 +62,8 @@ const authOptions: AuthOptions = {
     },
 
     async session({token, session}) {
-      // console.log('tokensession', token.user)
-      // console.log('session', session)
       session.user = token.user;
+      console.log('session', session)
       return session
     }
   },

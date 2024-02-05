@@ -2,7 +2,8 @@ type TLoading = 'idle' | 'loading';
 
 type ActionType = 'add' | 'edit' | 'delete' | 'addMember' | 'move' | 'share' | 'view' | 'template' | 'leave' | 'checked';
 
-type ApiResponseBase = {
+type ApiResponseBase<T> = {
+  data: T;
   status: string;
   message: string;
   message: string;

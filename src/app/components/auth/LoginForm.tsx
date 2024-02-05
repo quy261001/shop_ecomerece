@@ -15,6 +15,7 @@ import { useRouter } from "next13-progressbar";
 import { FormItem } from "react-hook-form-antd";
 import { Input, Icon } from "@/components";
 import { MESSAGE, useApp } from "@/common";
+import { useGetDetailUserQuery } from "@/app/services";
 
 const { Text, Title } = Typography;
 
@@ -35,6 +36,10 @@ export function LoginForm({ isPageLogin, onTogglePage }: any) {
   useEffect(() => {
     if (status === "authenticated") {
       message.success(MESSAGE.LOGIN_SUCCESS);
+      if(data?.user) {
+        localStorage.setItem('access_token', JSON.stringify(data?.user?.accessToken))
+        localStorage.setItem('refresh_token', JSON.stringify(data?.user?.refreshToken))
+      }
       router.push("/");
     }
   }, [status]);

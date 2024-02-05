@@ -12,7 +12,9 @@ import {
   Footer,
 } from "@/components";
 import { Flex } from "antd";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Home() {
   return (
