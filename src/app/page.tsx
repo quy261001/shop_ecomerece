@@ -12,11 +12,21 @@ import {
   Footer,
 } from "@/components";
 import { Flex } from "antd";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { jwtDecode } from "jwt-decode";
+import { useGetDetailUserQuery } from "@/app/services";
 import { useEffect } from "react";
-
+interface JwtPayload {
+  id: string;
+}
 export default function Home() {
+  useEffect(() => {
+    const data = localStorage.getItem('access_token');
+    const decode = jwtDecode(data!)
+    // test(decode.id)
+    console.log('decode', decode)
+  }, [])
+
   return (
     <main className="bg-white">
       <HeaderTop />

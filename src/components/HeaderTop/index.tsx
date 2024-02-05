@@ -8,8 +8,6 @@ import { usePathname } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
 import clsx from "clsx";
 import { Icon } from "../Icon";
-import { jwtDecode } from "jwt-decode";
-import { useGetDetailUserQuery } from "@/app/services";
 
 const { Text, Title } = Typography;
 const { Search } = Input;
@@ -30,14 +28,8 @@ export function HeaderTop() {
   const [isSignUp, setIsSignUp] = useState(true);
   const pathname = usePathname();
   const { status } = useSession();
-  const dataPa = useGetDetailUserQuery('65c0877e02993024febcc64d')
   useEffect(() => {
     if (status === "authenticated") {
-      const storedData = localStorage.getItem('access_token');
-      if(storedData !== null) {
-        const data = localStorage.getItem('access_token');
-        const decoded = jwtDecode(data!);
-      }
       setIsSignUp(false);
     }
   }, [status, isSignUp]);
