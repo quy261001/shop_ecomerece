@@ -2,6 +2,33 @@ import { authService } from "@/app/services";
 import nextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from 'next-auth/providers/google';
+import { JWT } from 'next-auth/jwt';
+import { TOKEN_EXPIRES_IN_SECONDS } from '@/common/constants'
+import { getExpiresIn } from "@/common/helper";
+
+/**
+ * Refreshes the given JWT token by making a request to the authentication service.
+ *
+ * @param {JWT} token - The JWT token to be refreshed.
+ * @return {Promise<JWT>} - A promise that resolves to the refreshed JWT token.
+ */
+
+async function refreshToken(token: JWT): Promise<JWT> {
+  const response = await authService.refreshAccessToken(token.user.refreshToken);
+  // console.log('response', response)
+  if(!response) return token;
+  console.log('**** Refreshed access token ****');
+
+  return {
+    ...token,
+    user: {
+      ...token.user,
+      accessToken: response.access_token,
+      refreshToken: response.data.refreshToken,
+      expiresIn: getExpiresIn(TOKEN_EXPIRES_IN_SECONDS)
+    }
+  }
+}
 
 const authOptions: AuthOptions = {
   providers: [
@@ -34,12 +61,13 @@ const authOptions: AuthOptions = {
         if(response?.status !== "OK" && !response?.access_token ) return null
 
         return {
-          id: credentials.email,
+          id: response.id,
           user: {
-            id: credentials?.email,
+            id: response?.id,
             email: credentials?.email,
             accessToken: response.access_token,
-            refreshToken: response.refresh_token
+            refreshToken: response.refresh_token,
+            expiresIn: getExpiresIn(TOKEN_EXPIRES_IN_SECONDS),
           }
         }
       }
@@ -58,14 +86,22 @@ const authOptions: AuthOptions = {
       }
       // console.log('token', token)
       // console.log('user', user)
-      return {...token, ...user};
+      if (user && account?.provider === 'credentials') {
+        return { ...token, ...user };
+      }
+
+      // Handle refresh token
+      if (new Date().getTime() < token.user.expiresIn) return token;
+
+      return await refreshToken(token);
     },
 
     async session({token, session}) {
       session.user = token.user;
-      console.log('session', session)
+      // console.log('session', session)
       return session
     }
+    
   },
 
   secret: process.env.NEXTAUTH_SECRET,

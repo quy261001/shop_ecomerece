@@ -13,5 +13,7 @@ export const MESSAGE = {
   CONFIRM_PASSWORD: 'Confirm Password is required',
 
   NAME_REQUIRED: 'Name is required',
-  PHONE_REQUIRED: 'Phone number at least 8 characters'
+  PHONE_REQUIRED: 'Phone number at least 8 characters',
+  ADDRESS_REQUIRED: 'Address is required',
+  CITY_REQUIRED: 'City is required'
 }

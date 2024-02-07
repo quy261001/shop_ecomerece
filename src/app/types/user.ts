@@ -3,12 +3,19 @@ export interface LoginUserRequestDTO {
   password: string
 }
 
+export interface LoginResponseDTO {
+  token: string;
+  refreshToken: string;
+}
+
 export interface RegisterUserDTO extends LoginUserRequestDTO {
   name: string,
   phone: number,
   confirmPassword: string
 }
 
+export interface RefreshTokenRequestDTO extends Pick<LoginResponseDTO, 'refreshToken'> {}
+export interface RefreshTokenResponseDTO extends LoginResponseDTO {}
 export interface UserProfileResponseDTO {
   id: string,
   name: string,
@@ -25,4 +32,10 @@ export interface UserState {
   loading: TLoading,
   currentRequestId: undefined;
   error: null;
+}
+
+export interface ProfileItem {
+  id: number;
+  label: string;
+  title: "name" | "email" | "phone" | "address" | "city";
 }

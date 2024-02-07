@@ -11,27 +11,32 @@ export function MenuHead() {
     {
       id: 1,
       name: 'Manage My Account',
-      icon: 'usercus'
+      icon: 'usercus',
+      link: '/users/account/profile',
     },
     {
       id: 2,
       name: 'My Order',
-      icon: 'order'
+      icon: 'order',
+      link: '/users/account',
     },
     {
       id: 3,
       name: 'My Cancellations',
-      icon: 'cancel'
+      icon: 'cancel',
+      link: '/users/account',
     },
     {
       id: 4,
       name: 'My Reviews',
-      icon: 'reviews'
+      icon: 'reviews',
+      link: '/users/account',
     },
     {
       id: 5,
       name: 'Logout',
       icon: 'logout',
+      link: '/users/account',
       onClick: () => signOut({ callbackUrl: '/login' }),
     }
   ]
@@ -41,7 +46,7 @@ export function MenuHead() {
         menuItems.map((item) => (
           <Flex onClick={item?.onClick} align="center" gap={16} key={item.id} className="cursor-pointer">
             <Icon name={item.icon} type="svg" width={28} height={28}/>
-            <Link href='#' className="text-sm text-[#fafafa]">{item.name}</Link>
+            <Link href={item.link} className="text-sm text-[#fafafa]">{item.name}</Link>
           </Flex>
         ))
       }

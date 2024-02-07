@@ -12,7 +12,6 @@ export default function AuthLayout({
   return (
     <Suspense fallback={<Loading />}>
       <Layout className="bg-[#fff]">
-        <HeaderTop />
         <Content className="lg:h-screen mt-[60px] mb-[140px]">
           <Row className="items-center flex-col lg:flex-row">
           <Col lg={11} className="">
@@ -29,7 +28,6 @@ export default function AuthLayout({
             </Col>
           </Row>
         </Content>
-        <Footer />
       </Layout>
     </Suspense>
   );

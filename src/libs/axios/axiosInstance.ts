@@ -35,7 +35,6 @@ class AxiosInstanceClass {
       async (config: AdaptAxiosRequestConfig) => {
         config.headers = config.headers ?? {};
         if (config.needToken) {
-          console.log('123')
           const accessToken = await this.getAccessToken();
           if (accessToken) config.headers.Token = `Bearer ${accessToken}`
         }
@@ -58,8 +57,7 @@ class AxiosInstanceClass {
   }
 
   private async getAccessToken(): Promise<string | null> {
-    const session = await getSession();
-    console.log('asda', session)
+    const session = await getSession(); 
     if(session) return session.user.accessToken;
 
     return null

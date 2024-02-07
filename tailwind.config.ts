@@ -23,6 +23,7 @@ const config: Config = {
       },
       boxShadow: {
         'gray': '0 0 10px rgba(0,0,0,0.15)',
+        'account': '0px 1px 13px 0px rgba(0, 0, 0, 0.05);'
       },
       colors,
       borderColor: {

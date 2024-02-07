@@ -15,6 +15,8 @@ export const userApi = createApi ({
       query: (id) => ({ url: `/user/get-details/${id}`, method: 'GET' }),
       transformResponse:(response: ApiResponseBase<UserProfileResponseDTO>) => response.data,
     }),
+
+    
   }),
 });
 

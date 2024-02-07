@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
 import clsx from "clsx";
 import { Icon } from "../Icon";
+import { useSelectorCurrent } from "@/app/services";
 
 const { Text, Title } = Typography;
 const { Search } = Input;
@@ -28,6 +29,8 @@ export function HeaderTop() {
   const [isSignUp, setIsSignUp] = useState(true);
   const pathname = usePathname();
   const { status } = useSession();
+  const dataUser = useSelectorCurrent();
+  // console.log('dataUser', dataUser)
   useEffect(() => {
     if (status === "authenticated") {
       setIsSignUp(false);
@@ -111,7 +114,7 @@ export function HeaderTop() {
             <Popover
               content={
                 <Fragment>
-                  <Title level={4} className="text-white text-center">quytran</Title>
+                  <Title level={4} className="text-white text-center">{dataUser ? dataUser.name: ''}</Title>
                   <Divider className="my-2 bg-white"></Divider>
                   <MenuHead />
                 </Fragment>

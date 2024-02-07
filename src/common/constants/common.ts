@@ -1,0 +1,1 @@
+export const TOKEN_EXPIRES_IN_SECONDS = 3500; //3500
