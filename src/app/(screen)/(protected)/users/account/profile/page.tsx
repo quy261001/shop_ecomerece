@@ -6,9 +6,9 @@ import { FormItem } from "react-hook-form-antd";
 import { Input, Label } from "@/components";
 import { ProfileItem } from "@/app/types";
 import * as z from "zod";
-import { MESSAGE } from "@/common";
+import { MESSAGE, useApp } from "@/common";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSelectorCurrent } from "@/app/services";
+import { useSelectorCurrent, useUpdateUserMutation } from "@/app/services";
 import { useEffect, useState } from "react";
 
 const { Text, Title } = Typography;
@@ -28,8 +28,9 @@ const schema = z.object({
 
 export default function AccountPage() {
   const dataUser = useSelectorCurrent();
-  const [isLoading, setIsLoading] = useState(false)
-
+  const [isLoading, setIsLoading] = useState(false);
+  const { message } = useApp();
+  const [updateUsers] = useUpdateUserMutation();
   const defaultValues = {
     name: "",
     email: "",
@@ -80,8 +81,15 @@ export default function AccountPage() {
   }, [dataUser])
 
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
-    setIsLoading(true)
-    console.log("formData", formData);
+    try {
+      setIsLoading(true)
+      await updateUsers({id: dataUser._id, ...formData})
+      message.success(MESSAGE.UPDATEDUSER_SUCCESS)
+    } catch(e) {
+      message.success(MESSAGE.UPDATEDUSER_FAILED)
+    } finally {
+      setIsLoading(false)
+    }
   };
 
   return (
@@ -107,6 +115,7 @@ export default function AccountPage() {
           <Button
             htmlType="submit"
             className="px-12 py-4 w-[214px] h-[56px] bg-custom hover:text-white"
+            disabled={isLoading}
           >
             Save Changes
           </Button>

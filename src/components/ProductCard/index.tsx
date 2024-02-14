@@ -1,15 +1,15 @@
 "use client";
 
 import { ProductCardDTO } from "@/app/types";
-import { Image, Rate, Card, Flex, Button } from "antd";
+import { Image, Rate, Flex, Button } from "antd";
 import { Icon } from "..";
 import { useState } from "react";
 
 interface ProductCardProps {
-  MockData: ProductCardDTO;
+  dataProduct: ProductCardDTO;
 }
 
-export function ProductCard({ MockData }: ProductCardProps) {
+export function ProductCard({ dataProduct }: ProductCardProps) {
   const [isPreviewVisible, setPreviewVisible] = useState(false);
 
   const handlePreviewClick = () => {
@@ -42,12 +42,12 @@ export function ProductCard({ MockData }: ProductCardProps) {
           onVisibleChange: handleCancelPreview,
         }}
         className="w-full h-[246px] transition-all object-cover rounded-md flex justify-center [&_.ant-image-mask]:hover:opacity-0 test"
-        src={MockData.image}
-        alt={MockData.name}
+        src={dataProduct.image}
+        alt={dataProduct.name}
       />
       <Flex className="mt-1" gap={8} vertical>
         <Flex align="center" justify="space-between">
-          <p className="text-base font-medium">{MockData.name}</p>
+          <p className="text-base font-medium">{dataProduct.name}</p>
           <Icon
             name="wishlist"
             type="svg"
@@ -57,9 +57,9 @@ export function ProductCard({ MockData }: ProductCardProps) {
           />
         </Flex>
         <p className="text-base font-medium mb-2 text-custom">
-          ${MockData.price}
+          ${dataProduct.price}
           <span className="text-gray-800  line-through pl-3">
-            ${MockData.discount}
+            ${dataProduct.discount}
           </span>
         </p>
 
@@ -68,9 +68,9 @@ export function ProductCard({ MockData }: ProductCardProps) {
             className="text-[16px]"
             disabled
             allowHalf
-            defaultValue={MockData.rating}
+            defaultValue={dataProduct.rating}
           />
-          <span>({MockData.countInStock})</span>
+          <span>({dataProduct.countInStock})</span>
         </Flex>
       </Flex>
       <Button className="w-full bg-[#DB4444] h-10 mt-4 hover:text-white hover:border-[#DB4444]">

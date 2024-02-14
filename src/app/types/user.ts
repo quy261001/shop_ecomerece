@@ -17,7 +17,7 @@ export interface RegisterUserDTO extends LoginUserRequestDTO {
 export interface RefreshTokenRequestDTO extends Pick<LoginResponseDTO, 'refreshToken'> {}
 export interface RefreshTokenResponseDTO extends LoginResponseDTO {}
 export interface UserProfileResponseDTO {
-  id: string,
+  _id: string,
   name: string,
   email: string,
   isAdmin: boolean,
@@ -27,9 +27,20 @@ export interface UserProfileResponseDTO {
   city: string
 }
 
+export interface UpdateUserDataDTO {
+  id: string;
+  name?: string;
+  email?: string;
+  isAdmin?: boolean;
+  phone?: number;
+  address?: string;
+  avatar?: string;
+  city?: string;
+}
+
 export interface UserState {
-  currentUser: UserProfileResponseDTO,
-  loading: TLoading,
+  currentUser: UserProfileResponseDTO;
+  loading: TLoading;
   currentRequestId: undefined;
   error: null;
 }

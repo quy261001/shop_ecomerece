@@ -15,7 +15,6 @@ export default function LayoutHome({
     String(dataSession?.user.id),
     { skip: !isAuthenticated }
   );
-  // console.log("data", data, isLoading, status);
 
   return (
     <>

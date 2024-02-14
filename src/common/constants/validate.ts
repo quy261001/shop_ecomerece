@@ -6,6 +6,9 @@ export const MESSAGE = {
 
   REGISTER_SUCCESS: 'Register successful',
   REGISTER_FAILED: 'Invalid REGISTER! Please try it again.',
+  
+  UPDATEDUSER_SUCCESS: 'Update User Success',
+  UPDATEDUSER_FAILED: 'Update User Failed',
 
   EMAIL_INVALID: 'Invalid email address',
   EMAIL_REQUIRED: 'Email is required',

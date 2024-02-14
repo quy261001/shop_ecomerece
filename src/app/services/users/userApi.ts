@@ -1,4 +1,4 @@
-import { UserProfileResponseDTO } from "@/app/types";
+import { UpdateUserDataDTO, UserProfileResponseDTO } from "@/app/types";
 import { axiosBaseQuery } from "@/libs/axios";
 import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
 
@@ -16,7 +16,12 @@ export const userApi = createApi ({
       transformResponse:(response: ApiResponseBase<UserProfileResponseDTO>) => response.data,
     }),
 
-    
+    updateUser: builder.mutation<UserProfileResponseDTO, UpdateUserDataDTO>({
+      query: ({id, ...data}) => {
+        return ({ url: `/user/update-user/${id}`, method: 'PUT', data })
+      },
+      transformResponse:(response: ApiResponseBase<UserProfileResponseDTO>) => response.data,
+    })
   }),
 });
 
@@ -30,4 +35,5 @@ export const userApiBuilder = (builder: ActionReducerMapBuilder<any>) => {
 
 export const {
   useGetDetailUserQuery,
+  useUpdateUserMutation
 } = userApi;
