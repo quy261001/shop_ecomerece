@@ -11,11 +11,12 @@ import {
   Superiority,
   Loading,
 } from "@/components";
-import { Flex } from "antd";
+import { Flex, Pagination } from "antd";
 import Link from "next/link";
 
 export default function Home() {
-  const { isLoading } = useGetProductsQuery();
+
+  const {data, isLoading } = useGetProductsQuery({});
   const dataProduct = useSelectorProduct();
   return (
     <Flex vertical className="pb-[140px] mx-auto px-8 mt-12">
@@ -23,7 +24,7 @@ export default function Home() {
         {!isLoading && <FlashSales dataProduct={dataProduct} />}
         <Flex justify="center">
           <ButtonAll>
-            <Link href="#">View All Products</Link>
+            <Link href="/products">View All Products</Link>
           </ButtonAll>
         </Flex>
       </section>

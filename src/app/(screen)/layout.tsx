@@ -1,6 +1,6 @@
 "use client";
 import { Footer, HeaderTop } from "@/components";
-import { useGetDetailUserQuery } from "@/app/services";
+import { useGetDetailUserQuery, useGetTypeProductsQuery} from "@/app/services";
 import { useSession } from "next-auth/react";
 import { useIsAuthenticated } from "@/common/hooks/useIsAuthenticated";
 
@@ -15,7 +15,7 @@ export default function LayoutHome({
     String(dataSession?.user.id),
     { skip: !isAuthenticated }
   );
-
+  const { data: dataType } = useGetTypeProductsQuery();
   return (
     <>
       <HeaderTop />

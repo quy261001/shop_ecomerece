@@ -4,6 +4,7 @@ import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
 
 import { set } from 'lodash'
 import { createApi } from "@reduxjs/toolkit/query/react";
+import { getPath } from "@/common/helper";
 
 export const productApi = createApi ({
   reducerPath: 'productApi',
@@ -11,11 +12,13 @@ export const productApi = createApi ({
   refetchOnMountOrArgChange: true,
   tagTypes: ['Products'],
   endpoints: (builder) => ({
-    getProducts: builder.query<ProductCardDTO, void>({
-      query: () => ({ url: `/product/get-all`, method: 'GET' }),
-      transformResponse:(response: ApiResponseBase<ProductCardDTO>) => response.data,
+    getProducts: builder.query<ProductCardDTO, Pick<PaginationMetaData, 'page' | 'limit'> | {}>({
+      query: (requestParams) => ({ url: getPath(`/product/get-all`, requestParams), method: 'GET' }),
     }),
-
+    getTypeProducts: builder.query<string[], void>({
+      query: () => ({url: `/product/get-all-type`, method: 'GET'}),
+      transformResponse:(response: ApiResponseBase<string[]>) => response.data
+    })
   }),
 });
 
@@ -24,9 +27,15 @@ export const productApiBuilder = (builder: ActionReducerMapBuilder<any>) => {
     set(state, 'currentProduct', payload)
     set(state, 'loading', 'idle')
     set(state, 'currentRequestId', '')
+  })
+  builder.addMatcher(productApi.endpoints.getTypeProducts.matchFulfilled, (state, {payload}) => {
+    set(state, 'typeProduct', payload)
+    set(state, 'loading', 'idle')
+    set(state, 'currentRequestId', '')
   }) 
 }
 
 export const {
-  useGetProductsQuery
+  useGetProductsQuery,
+  useGetTypeProductsQuery
 } = productApi;

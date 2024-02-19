@@ -21,7 +21,7 @@ type NavItem = {
 
 export function HeaderTop() {
   const signUpItem = {
-    id: 4,
+    id: 5,
     name: "SignUp",
     link: "/login",
   };
@@ -30,7 +30,6 @@ export function HeaderTop() {
   const pathname = usePathname();
   const { status } = useSession();
   const dataUser = useSelectorCurrent();
-  // console.log('dataUser', dataUser)
   useEffect(() => {
     if (status === "authenticated") {
       setIsSignUp(false);
@@ -44,13 +43,18 @@ export function HeaderTop() {
     },
     {
       id: 2,
-      name: "Contact",
-      link: "contact",
+      name: "Product",
+      link: "/products",
     },
     {
       id: 3,
+      name: "Contact",
+      link: "/contact",
+    },
+    {
+      id: 4,
       name: "About",
-      link: "about",
+      link: "/about",
     },
     isSignUp && signUpItem,
   ].filter(Boolean) as Array<NavItem | typeof signUpItem>;

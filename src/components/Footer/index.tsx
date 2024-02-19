@@ -6,7 +6,7 @@ const { Title, Text } = Typography;
 export function Footer() {
   return (
     <section className="bg-black">
-      <Flex className="max-w-[1240px] mx-auto gap-[87px] pt-20 pb-[60px]">
+      <Flex className="max-w-[1240px] px-8 mx-auto gap-[87px] pt-20 pb-[60px]">
         <Flex vertical gap={16}>
           <Title level={3} className="text-white font-bold mb-2">
             Exclusive

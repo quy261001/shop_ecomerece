@@ -4,6 +4,7 @@ import { useSelectorProduct } from "@/app/services";
 import { CarouselRef, ProductCardDTO } from "@/app/types";
 import { Icon, TagLeft, CountDown, ProductCard } from "@/components";
 import { Flex, Typography, Carousel as AntCarousel, Button, CarouselProps } from "antd";
+import { isEmpty } from "lodash";
 import { ForwardRefExoticComponent, Ref, RefAttributes, RefObject, useRef } from "react";
 
 const { Text } = Typography;
@@ -46,7 +47,7 @@ const ref: Ref<CarouselRef> = useRef<CarouselRef | null>(null);
         </Flex>
       </Flex>
      <Carousel ref={ref} {...props}>
-        {dataProduct && dataProduct.map((item: ProductCardDTO) => (
+        {!isEmpty(dataProduct) && dataProduct.map((item: ProductCardDTO) => (
           <ProductCard key={item.id} dataProduct={item} />
         ))}
       </Carousel>

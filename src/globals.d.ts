@@ -18,13 +18,13 @@ type ApiError<T> = {
 
 type PaginationMetaData = {
   page: number;
-  perPage: number;
-  total: number;
+  limit: number | null;
+  total: number | null;
 };
 
 type Pagination = {
   hasNextPage: boolean;
-  nextPage: number | null;
+  nextPage: number;
   maxPages: number;
 };
 

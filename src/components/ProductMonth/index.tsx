@@ -3,6 +3,7 @@
 import { CarouselRef, ProductCardDTO } from "@/app/types";
 import {TagLeft,ProductCard, ButtonAll } from "@/components";
 import { Flex, Typography, Carousel as AntCarousel, CarouselProps } from "antd";
+import { isEmpty } from "lodash";
 import Link from "next/link";
 import { ForwardRefExoticComponent, Ref, RefAttributes, useRef } from "react";
 
@@ -30,11 +31,11 @@ export function ProductMonth({dataProduct}: any) {
           </Text>
         </Flex>
         <ButtonAll>
-          <Link href='#'>View All</Link>
+          <Link href='/products'>View All</Link>
         </ButtonAll>
       </Flex>
       <Carousel ref={ref} {...props}>
-        {dataProduct && dataProduct.map((item: ProductCardDTO) => (
+        {!isEmpty(dataProduct) && dataProduct.map((item: ProductCardDTO) => (
           <ProductCard key={item.id} dataProduct={item} />
         ))}
       </Carousel>
