@@ -50,3 +50,9 @@ export interface ProfileItem {
   label: string;
   title: "name" | "email" | "phone" | "address" | "city";
 }
+
+export interface ContactItem {
+  id: number;
+  label: string;
+  title: "name" | "email" | "phone" | "message";
+}

@@ -27,7 +27,7 @@ export function ProductMain({ activeCategory }: ProductMainProps) {
   };
   return (
     <Flex vertical className="border-l border-l-[#eee] border-solid">
-      <Row gutter={[12, 0]} className="pl-3">
+      <Row gutter={[12, 12]} className="pl-3">
         {!isEmpty(data) &&
           data.data.map((item: any) => (
             <Col key={item.id} span={6}>

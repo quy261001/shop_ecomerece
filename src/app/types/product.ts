@@ -1,5 +1,5 @@
 export interface ProductCardDTO {
-  id: number;
+  _id: number;
   name: string;
   images: string;
   type: string;
@@ -12,6 +12,21 @@ export interface ProductCardDTO {
   data: [];
   totalPage: number;
   total: number;
+}
+export interface ProductCardDetail {
+  _id: string;
+  name: string;
+  images: Array<string>;
+  type: string;
+  selled: number;
+  colors: Array<string>;
+  sizes: Array<string>;
+  price: number;
+  stock: number;
+  reviews: number;
+  rating: number;
+  description: string;
+  discount: number;
 }
 
 export interface CategoryCardDTO {

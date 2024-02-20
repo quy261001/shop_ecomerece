@@ -1,4 +1,4 @@
-import { ProductCardDTO } from "@/app/types";
+import { ProductCardDTO, ProductCardDetail } from "@/app/types";
 import { axiosBaseQuery } from "@/libs/axios";
 import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
 
@@ -14,6 +14,10 @@ export const productApi = createApi ({
   endpoints: (builder) => ({
     getProducts: builder.query<ProductCardDTO, Pick<PaginationMetaData, 'page' | 'limit'> | {}>({
       query: (requestParams) => ({ url: getPath(`/product/get-all`, requestParams), method: 'GET' }),
+    }),
+    getProductDetail: builder.query<ProductCardDetail, string>({
+      query: (id) => ({ url: `/product/get-details/${id}`, method: 'GET' }),
+      transformResponse:(response: ApiResponseBase<ProductCardDetail>) => response.data
     }),
     getTypeProducts: builder.query<string[], void>({
       query: () => ({url: `/product/get-all-type`, method: 'GET'}),
@@ -37,5 +41,6 @@ export const productApiBuilder = (builder: ActionReducerMapBuilder<any>) => {
 
 export const {
   useGetProductsQuery,
+  useGetProductDetailQuery,
   useGetTypeProductsQuery
 } = productApi;
