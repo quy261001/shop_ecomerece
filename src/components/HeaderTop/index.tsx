@@ -1,7 +1,6 @@
 "use client";
 
 import { Flex, Typography, Input, Divider } from "antd";
-import { useSession } from "next-auth/react";
 import { MenuHead, Popover } from "@/components";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,6 +8,7 @@ import { Fragment, useEffect, useState } from "react";
 import clsx from "clsx";
 import { Icon } from "../Icon";
 import { useSelectorCurrent } from "@/app/services";
+import { useIsAuthenticated } from "@/common";
 
 const { Text, Title } = Typography;
 const { Search } = Input;
@@ -28,13 +28,13 @@ export function HeaderTop() {
 
   const [isSignUp, setIsSignUp] = useState(true);
   const pathname = usePathname();
-  const { status } = useSession();
+  const { isAuthenticated } = useIsAuthenticated();
   const dataUser = useSelectorCurrent();
   useEffect(() => {
-    if (status === "authenticated") {
+    if (isAuthenticated) {
       setIsSignUp(false);
     }
-  }, [status, isSignUp]);
+  }, [isAuthenticated, isSignUp]);
   const NavItems: Array<NavItem | typeof signUpItem> = [
     {
       id: 1,

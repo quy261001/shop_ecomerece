@@ -2,7 +2,7 @@
 import { Col, Layout, Row } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { Suspense } from "react";
-import { Loading, HeaderTop, Footer } from "@/components";
+import { Loading } from "@/components";
 
 export default function AuthLayout({
   children,

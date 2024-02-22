@@ -11,7 +11,7 @@ import {
   Superiority,
   Loading,
 } from "@/components";
-import { Flex, Pagination } from "antd";
+import { Flex } from "antd";
 import Link from "next/link";
 
 export default function Home() {

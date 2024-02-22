@@ -1,10 +1,12 @@
 "use client";
 
-import { ProductCardDTO } from "@/app/types";
+import { ProductCardDTO, AddCartProduct } from "@/app/types";
 import { Image, Rate, Flex, Button } from "antd";
 import { Icon } from "..";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import { useAppDispatch } from "@/app/redux/hooks";
+import { productActions } from "@/app/services";
 
 interface ProductCardProps {
   dataProduct: ProductCardDTO;
@@ -12,7 +14,16 @@ interface ProductCardProps {
 
 export function ProductCard({ dataProduct }: ProductCardProps) {
   const [isPreviewVisible, setPreviewVisible] = useState(false);
-
+  const dispatch = useAppDispatch();
+  const addCartProduct = () => {
+    const product: AddCartProduct = {
+      ...dataProduct,
+      sizes: [dataProduct.sizes[0] || ''],
+      colors: [dataProduct.colors[0] || ''],
+      quantity: 1
+    }
+    dispatch(productActions.addCart(product))
+  }
   const discountPercentage = (
     ((dataProduct.price - dataProduct.discount) / dataProduct.price) *
     100
@@ -27,12 +38,12 @@ export function ProductCard({ dataProduct }: ProductCardProps) {
   return (
     <div className="max-w-[246px] relative p-[10px] transition-all cursor-pointer hover:scale-100 hover:shadow-gray">
       <Link href={`/products/${dataProduct._id}`}>
-        <span className="absolute w-[55px] h-[26px] z-30 top-0 left-[1.75rem] bg-custom flex justify-center items-center text-white rounded text-xs">
+        <span className="absolute w-[55px] h-[26px] z-30 top-[12px] left-[1.75rem] bg-custom flex justify-center items-center text-white rounded text-xs">
           {discountPercentage}%
         </span>
         <div
           onClick={handlePreviewClick}
-          className=" absolute z-30 top-0 right-[1.75rem] flex justify-center items-center "
+          className=" absolute z-30 top-[12px] right-[1.75rem] flex justify-center items-center "
         >
           <Icon
             name="group"
@@ -80,7 +91,7 @@ export function ProductCard({ dataProduct }: ProductCardProps) {
           </Flex>
         </Flex>
       </Link>
-        <Button className="w-full bg-[#DB4444] h-10 mt-4 hover:text-white hover:border-[#DB4444]">
+        <Button onClick={() => addCartProduct()} className="w-full bg-[#DB4444] h-10 mt-4 hover:text-white hover:border-[#DB4444]">
           Add To Cart
         </Button>
     </div>

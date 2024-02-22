@@ -9,12 +9,12 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Checkbox, Flex, Form, Typography } from "antd";
 import * as z from "zod";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next13-progressbar";
 import { FormItem } from "react-hook-form-antd";
 import { Input, Icon } from "@/components";
-import { MESSAGE, useApp } from "@/common";
+import { MESSAGE, useApp, useIsAuthenticated } from "@/common";
 
 const { Text, Title } = Typography;
 
@@ -30,14 +30,14 @@ const defaultValues = { email: "", password: "" };
 export function LoginForm({ isPageLogin, onTogglePage }: any) {
   const { message } = useApp();
   const [isLoading, setIsLoading] = useState(false);
-  const { status, data } = useSession();
+  const { isAuthenticated } = useIsAuthenticated();
   const router = useRouter();
   useEffect(() => {
-    if (status === "authenticated") {
+    if (isAuthenticated) {
       message.success(MESSAGE.LOGIN_SUCCESS);
       router.push("/");
     }
-  }, [status]);
+  }, [isAuthenticated]);
   const methods = useForm({
     defaultValues,
     resolver: zodResolver(schema),

@@ -157,3 +157,28 @@ img {
   color: #FAFAFA;
   opacity: 0.4;
 }
+
+.slick-dots li {
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 100rem !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background-color: #ccc !important;
+  margin-inline: 6px !important;
+}
+
+.slick-dots li button {
+  background-color: transparent !important;
+  border-radius: 100rem !important;
+}
+
+.slick-dots li.slick-active button {
+  width: 10px !important;
+  height: 10px !important;
+  background-color: #DB4444 !important;
+}
+.slick-dots-bottom {
+  bottom: -10% !important;
+}

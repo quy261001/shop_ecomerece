@@ -1,14 +1,5 @@
-export interface ProductCardDTO {
-  _id: number;
-  name: string;
-  images: string;
-  type: string;
-  price: number;
-  stock: number;
-  reviews: number;
-  rating: number;
-  description: string;
-  discount: number;
+export interface ProductCardDTO extends ProductCardDetail{
+  id: string;
   data: [];
   totalPage: number;
   total: number;
@@ -21,6 +12,7 @@ export interface ProductCardDetail {
   selled: number;
   colors: Array<string>;
   sizes: Array<string>;
+  quantity: number; 
   price: number;
   stock: number;
   reviews: number;
@@ -35,8 +27,15 @@ export interface CategoryCardDTO {
   name: string;
 }
 
+export interface AddCartProduct {
+  sizes: string[];
+  colors: string[];
+  quantity: number;
+}
+
 export interface ProductState {
   currentProduct: ProductCardDTO;
+  cartProduct: ProductCardDTO[];
   typeProduct: [];
   loading: TLoading;
   currentRequestId: undefined;

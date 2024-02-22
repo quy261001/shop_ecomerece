@@ -7,13 +7,11 @@ import {
   useForm,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Checkbox, Flex, Form, Typography } from "antd";
+import { Button, Flex, Form, Typography } from "antd";
 import * as z from "zod";
-import { signIn, useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { useRouter } from "next13-progressbar";
+import { useState } from "react";
 import { FormItem } from "react-hook-form-antd";
-import { Label, Input, Icon } from "@/components";
+import { Input } from "@/components";
 import { MESSAGE, useApp } from "@/common";
 import { authService } from "@/app/services";
 import { RegisterUserDTO } from "@/app/types/user";

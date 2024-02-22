@@ -1,11 +1,13 @@
 "use client";
 
-import { ProductCardDetail } from "@/app/types";
+import { ProductCardDetail, AddCartProduct } from "@/app/types";
 import { Flex, Image, Rate, Typography, Divider, Button } from "antd";
 import { useState } from "react";
 import clsx from "clsx";
 import { Icon } from "@/components";
 import Link from "next/link";
+import { useAppDispatch } from "@/app/redux/hooks";
+import { productActions } from "@/app/services";
 
 const { Title, Text } = Typography;
 
@@ -20,6 +22,7 @@ export function ProductDetail({ productDataDetail }: productDetailProps) {
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState(productDataDetail?.sizes[0]);
   const [color, setColor] = useState(productDataDetail?.colors[0]);
+  const dispatch = useAppDispatch()
 
   const handleColorChange = (color: string) => {
     setColor(color);
@@ -35,11 +38,20 @@ export function ProductDetail({ productDataDetail }: productDetailProps) {
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
+  const addCartProduct = () => {
+    const product: AddCartProduct = {
+      ...productDataDetail,
+      sizes: [size || ''],
+      colors: [color || ''],
+      quantity: quantity
+    };
+    dispatch(productActions.addCart(product));
+  }
   return (
     <Flex>
       <Flex vertical gap={15}>
         {productDataDetail?.images.map((item, index) => (
-          <div
+          <Flex align="center" justify="center"
             onClick={() => setSelectedImage(item)}
             key={index}
             className={clsx(
@@ -53,18 +65,19 @@ export function ProductDetail({ productDataDetail }: productDetailProps) {
               height={114}
               src={item}
               alt="123"
+              className="object-contain"
             />
-          </div>
+          </Flex>
         ))}
       </Flex>
-      <div className="px-[27px] border-[#ccc] border-solid border ml-8 rounded-md">
+      <Flex align="center" justify="center" className="px-[27px] border-[#ccc] border-solid border ml-8 rounded-md">
         <Image
           src={selectedImage}
           alt={productDataDetail?.name}
-          className="max-w-[500px]"
+          className="max-h-[450px]"
         />
-      </div>
-      <Flex vertical gap={6} className="ml-[70px] max-w-[400px]">
+      </Flex>
+      <Flex vertical gap={6} className="ml-[70px] max-w-[400px] min-h-[510px]">
         <Title
           level={3}
           className="mb-0 font-semibold tracking-[0.72px] line-clamp-1"
@@ -96,7 +109,7 @@ export function ProductDetail({ productDataDetail }: productDetailProps) {
             ${productDataDetail?.price}
           </Text>
         </Flex>
-        <Text className="text-sm line-clamp-3">
+        <Text className="text-sm line-clamp-3 h-[60px]">
           {productDataDetail?.description}
         </Text>
         <Divider className="bg-[#ccc] my-0" />
@@ -164,7 +177,7 @@ export function ProductDetail({ productDataDetail }: productDetailProps) {
               +
             </button>
           </Flex>
-          <Button type="primary" danger className="h-full w-[165px]">
+          <Button onClick={() => addCartProduct()} type="primary" danger className="h-full w-[165px]">
             Buy Now
           </Button>
           <Flex
