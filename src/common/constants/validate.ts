@@ -18,5 +18,7 @@ export const MESSAGE = {
   NAME_REQUIRED: 'Name is required',
   PHONE_REQUIRED: 'Phone number at least 8 characters',
   ADDRESS_REQUIRED: 'Address is required',
-  CITY_REQUIRED: 'City is required'
+  CITY_REQUIRED: 'City is required',
+
+  ADDPRODUCT_SUCCESS: 'Add Product Success'
 }

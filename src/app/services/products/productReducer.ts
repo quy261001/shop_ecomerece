@@ -25,13 +25,13 @@ const reducers = {
       // Tăng số lượng sản phẩm hiện có trong giỏ hàng
       state.cartProduct[itemIndex].quantity += payload.quantity;
 
-      if (payload.sizes && payload.sizes.length > 0) {
+      if (payload.sizes && payload.sizes[0] !== '') {
         payload.sizes.forEach((newSize: string) => {
           state.cartProduct[itemIndex].sizes.push(newSize);
         });
       }
 
-      if (payload.colors && payload.colors.length > 0) {
+      if (payload.colors && payload.colors[0] !== '') {
         payload.colors.forEach((newColor: string) => {
           state.cartProduct[itemIndex].colors.push(newColor);
         });

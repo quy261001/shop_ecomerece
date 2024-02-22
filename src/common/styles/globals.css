@@ -182,3 +182,6 @@ img {
 .slick-dots-bottom {
   bottom: -10% !important;
 }
+.ant-notification-notice-message {
+  margin-bottom: 0 !important;
+}

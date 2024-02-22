@@ -7,6 +7,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useAppDispatch } from "@/app/redux/hooks";
 import { productActions } from "@/app/services";
+import { MESSAGE, useApp, useIsAuthenticated } from "@/common";
+import { ModalIsAuth } from "@/app/components/auth";
 
 interface ProductCardProps {
   dataProduct: ProductCardDTO;
@@ -14,6 +16,9 @@ interface ProductCardProps {
 
 export function ProductCard({ dataProduct }: ProductCardProps) {
   const [isPreviewVisible, setPreviewVisible] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
+  const { isAuthenticated } = useIsAuthenticated();
+  const { notification } = useApp()
   const dispatch = useAppDispatch();
   const addCartProduct = () => {
     const product: AddCartProduct = {
@@ -22,7 +27,12 @@ export function ProductCard({ dataProduct }: ProductCardProps) {
       colors: [dataProduct.colors[0] || ''],
       quantity: 1
     }
-    dispatch(productActions.addCart(product))
+    if(isAuthenticated && product) {
+      dispatch(productActions.addCart(product));
+      notification.success({ message: MESSAGE.ADDPRODUCT_SUCCESS });
+    } else {
+      setIsShowModal(true);
+    }
   }
   const discountPercentage = (
     ((dataProduct.price - dataProduct.discount) / dataProduct.price) *
@@ -94,6 +104,9 @@ export function ProductCard({ dataProduct }: ProductCardProps) {
         <Button onClick={() => addCartProduct()} className="w-full bg-[#DB4444] h-10 mt-4 hover:text-white hover:border-[#DB4444]">
           Add To Cart
         </Button>
+        {isShowModal && (
+          <ModalIsAuth open={isShowModal} onCancel={() => setIsShowModal(false)} />
+        )}
     </div>
   );
 }

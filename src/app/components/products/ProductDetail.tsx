@@ -1,13 +1,17 @@
 "use client";
 
 import { ProductCardDetail, AddCartProduct } from "@/app/types";
-import { Flex, Image, Rate, Typography, Divider, Button } from "antd";
+import { Flex, Image, Rate, Typography, Divider, Button, message } from "antd";
 import { useState } from "react";
 import clsx from "clsx";
 import { Icon } from "@/components";
 import Link from "next/link";
 import { useAppDispatch } from "@/app/redux/hooks";
+import { useApp } from "@/common";
 import { productActions } from "@/app/services";
+import { useIsAuthenticated } from "@/common";
+import { ModalIsAuth } from "../auth";
+import { MESSAGE } from '@/common'
 
 const { Title, Text } = Typography;
 
@@ -20,8 +24,11 @@ export function ProductDetail({ productDataDetail }: productDetailProps) {
     productDataDetail?.images[0]
   );
   const [quantity, setQuantity] = useState(1);
+  const [isShowModal, setIsShowModal] = useState(false);
   const [size, setSize] = useState(productDataDetail?.sizes[0]);
   const [color, setColor] = useState(productDataDetail?.colors[0]);
+  const { isAuthenticated } = useIsAuthenticated();
+  const { notification } = useApp()
   const dispatch = useAppDispatch()
 
   const handleColorChange = (color: string) => {
@@ -45,7 +52,12 @@ export function ProductDetail({ productDataDetail }: productDetailProps) {
       colors: [color || ''],
       quantity: quantity
     };
-    dispatch(productActions.addCart(product));
+    if(isAuthenticated && product) {
+      dispatch(productActions.addCart(product));
+      notification.success({ message: MESSAGE.ADDPRODUCT_SUCCESS });
+    } else {
+      setIsShowModal(true);
+    }
   }
   return (
     <Flex>
@@ -219,6 +231,10 @@ export function ProductDetail({ productDataDetail }: productDetailProps) {
           </div>
         </div>
       </Flex>
+      {isShowModal && (
+          <ModalIsAuth open={isShowModal} onCancel={() => setIsShowModal(false)} />
+        )}
     </Flex>
+    
   );
 }
