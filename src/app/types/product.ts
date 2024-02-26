@@ -1,4 +1,4 @@
-export interface ProductCardDTO extends ProductCardDetail{
+export interface ProductCardDTO extends ProductCardDetail {
   id: string;
   data: [];
   totalPage: number;
@@ -12,13 +12,23 @@ export interface ProductCardDetail {
   selled: number;
   colors: Array<string>;
   sizes: Array<string>;
-  quantity: number; 
+  quantity: number;
   price: number;
   stock: number;
   reviews: number;
   rating: number;
   description: string;
   discount: number;
+}
+
+export interface DataSourceDTO {
+  key: number;
+  image: JSX.Element;
+  price: string;
+  colors: JSX.Element;
+  sizes: JSX.Element;
+  quantity: number;
+  action: JSX.Element;
 }
 
 export interface CategoryCardDTO {

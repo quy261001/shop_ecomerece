@@ -1,7 +1,7 @@
 "use client";
 
-import { ProductCardDetail } from "@/app/types";
-import { Table, Tag, Image, Space, Button, Badge } from "antd";
+import { ProductCardDetail, DataSourceDTO  } from "@/app/types";
+import { Table, Tag, Image, Space, Button } from "antd";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "@/app/redux/hooks"; 
 import { productActions } from "@/app/services";
@@ -11,7 +11,7 @@ interface ProductCartProps {
 }
 
 export function TableBase({ productCart }: ProductCartProps) {
-  const [dataSource, setDataSource] = useState([]);
+  const [dataSource, setDataSource] = useState<Array<DataSourceDTO>>([]);
   const dispatch = useAppDispatch();
   const handleDelete = (item: ProductCardDetail) => {
     dispatch(productActions.deleteCart(item))
