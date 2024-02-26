@@ -1,3 +1,5 @@
+'use client'
+
 import { ProductCardDetail } from '@/app/types';
 import { useEffect, useState } from 'react';
 

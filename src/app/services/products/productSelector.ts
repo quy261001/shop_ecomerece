@@ -1,5 +1,3 @@
-'use client'
-
 import { RootState } from "@/app/redux";
 import { ProductCardDTO, ProductCardDetail } from "@/app/types";
 import { useSelector } from 'react-redux';
