@@ -109,7 +109,7 @@ export function HeaderTop() {
               height={28}
               className="cursor-pointer"
             />
-            <Link href="/cart">
+            <Link href="/carts">
               <Badge count={productCart.length}>
                 <Icon
                   type="svg"
