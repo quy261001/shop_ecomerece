@@ -1,13 +1,13 @@
 "use client";
 
-import { Flex, Typography, Input, Divider } from "antd";
+import { Flex, Typography, Input, Divider, Badge } from "antd";
 import { MenuHead, Popover } from "@/components";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
 import clsx from "clsx";
 import { Icon } from "../Icon";
-import { useSelectorCurrent } from "@/app/services";
+import { useSelectorCurrent, useSelectorCartProduct } from "@/app/services";
 import { useIsAuthenticated } from "@/common";
 
 const { Text, Title } = Typography;
@@ -30,6 +30,7 @@ export function HeaderTop() {
   const pathname = usePathname();
   const { isAuthenticated } = useIsAuthenticated();
   const dataUser = useSelectorCurrent();
+  const productCart = useSelectorCartProduct();
   useEffect(() => {
     if (isAuthenticated) {
       setIsSignUp(false);
@@ -108,17 +109,23 @@ export function HeaderTop() {
               height={28}
               className="cursor-pointer"
             />
-            <Icon
-              type="svg"
-              name="cart"
-              width={28}
-              height={28}
-              className="cursor-pointer"
-            />
+            <Link href="/cart">
+              <Badge count={productCart.length}>
+                <Icon
+                  type="svg"
+                  name="cart"
+                  width={28}
+                  height={28}
+                  className="cursor-pointer"
+                />
+              </Badge>
+            </Link>
             <Popover
               content={
                 <Fragment>
-                  <Title level={4} className="text-white text-center">{dataUser ? dataUser.name: ''}</Title>
+                  <Title level={4} className="text-white text-center">
+                    {dataUser ? dataUser.name : ""}
+                  </Title>
                   <Divider className="my-2 bg-white"></Divider>
                   <MenuHead />
                 </Fragment>

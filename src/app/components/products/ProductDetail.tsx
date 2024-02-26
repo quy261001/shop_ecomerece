@@ -30,7 +30,6 @@ export function ProductDetail({ productDataDetail }: productDetailProps) {
   const { isAuthenticated } = useIsAuthenticated();
   const { notification } = useApp()
   const dispatch = useAppDispatch()
-
   const handleColorChange = (color: string) => {
     setColor(color);
   };

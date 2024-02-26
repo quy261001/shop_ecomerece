@@ -20,9 +20,7 @@ const reducers = {
     const itemIndex = state.cartProduct.findIndex(
       (item) => item._id === payload._id
     );
-    console.log("itemIndex", itemIndex);
     if (itemIndex >= 0) {
-      // Tăng số lượng sản phẩm hiện có trong giỏ hàng
       state.cartProduct[itemIndex].quantity += payload.quantity;
 
       if (payload.sizes && payload.sizes[0] !== '') {
@@ -41,6 +39,10 @@ const reducers = {
     }
     localStorage.setItem("cartProduct", JSON.stringify(state.cartProduct));
   },
+  deleteCart: (state: ProductState, { payload }: PayloadAction<any>) => {
+    state.cartProduct = state.cartProduct.filter((item) => item._id !== payload._id);
+    localStorage.setItem("cartProduct", JSON.stringify(state.cartProduct));
+  }
 };
 
 export default reducers;
